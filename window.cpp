@@ -181,6 +181,7 @@ void DrawArea::update(bool firstRun) {
 	QTextStream(stdout) << "Solving system: ...";
 	QTextStream(stdout).flush();
 #ifdef SAVE_TO_FILE
+	quint32 j;
 	QFile matrixFile("matrix.txt");
 	matrixFile.open(QFile::WriteOnly);
 	QTextStream matrixStream(&matrixFile);
