@@ -50,16 +50,12 @@ public:
 	void update(bool firstRun = false);
 	void updateResidual();
 
-public slots:
-	void requestUpdate();
-
 private:
 	double xRot;
 	double yRot;
 	double zRot;
 	double nSca;
 	QPoint mousePosition;
-	bool updateRequested;
 	quint32 drawLayers;
 	quint32 calcLayers;
 	quint32 threads;

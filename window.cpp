@@ -80,9 +80,6 @@ MyMainWindow::MyMainWindow():
 	connect(&functionAction, SIGNAL(triggered(bool)), &drawArea, SLOT(repaint()));
 	connect(&interpolationAction, SIGNAL(triggered(bool)), &drawArea, SLOT(repaint()));
 	connect(&residualAction, SIGNAL(triggered(bool)), &drawArea, SLOT(repaint()));
-	connect(&calcLayersSpinBox, SIGNAL(editingFinished()), &drawArea, SLOT(requestUpdate()));
-	connect(&drawLayersSpinBox, SIGNAL(editingFinished()), &drawArea, SLOT(requestUpdate()));
-	connect(&threadsSpinBox, SIGNAL(editingFinished()), &drawArea, SLOT(requestUpdate()));
 	// prepare window
 	resize(1000, 800);
 	setCentralWidget(&drawArea);
@@ -115,10 +112,6 @@ double interpolationFunction(DrawArea *a, QPointF, Vertex v) {
 
 double residualFunction(DrawArea *a, QPointF p, Vertex v) {
 	return origFunction(a, p, v) - interpolationFunction(a, p, v);
-}
-
-void DrawArea::requestUpdate() {
-	updateRequested = true;
 }
 
 void DrawArea::update(bool firstRun) {
@@ -211,7 +204,6 @@ void DrawArea::update(bool firstRun) {
 	for (i = 0; i < threads; ++i)
 		pthread_join(thr[i], NULL);
 	updateResidual();
-	updateRequested = false;
 }
 
 void DrawArea::updateResidual() {
@@ -292,10 +284,10 @@ void DrawArea::draw(const GLfloat *surfaceColor, const GLfloat *meshColor,
 }
 
 void DrawArea::paintGL() {
-	if (updateRequested && (
+	if (
 		quint32(WINDOW->calcLayersSpinBox.value()) != calcLayers ||
 		quint32(WINDOW->drawLayersSpinBox.value()) != drawLayers
-	))
+	)
 		update();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
