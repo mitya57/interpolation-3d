@@ -1,0 +1,7 @@
+*.o
+*.out
+interpolation
+window
+Makefile
+moc_*.cpp
+matrix.txt

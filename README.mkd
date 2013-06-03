@@ -1,0 +1,5 @@
+This program implements function interpolation in three-dimensional space on a polygon.
+
+To specify the polygon, edit `coordinates.txt` file.
+
+To specify the function, edit `function.cpp` file.
