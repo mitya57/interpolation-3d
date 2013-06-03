@@ -27,7 +27,7 @@ void taskGetNzCount(Args *a) {
 }
 
 void taskFillMatrix(Args *a) {
-	quint32 i, j, l, ind, msize = POINTS(a->layers, a->size);
+	quint32 i, j, ind, msize = POINTS(a->layers, a->size);
 	int k;
 	double c;
 	TriangleList triangleList;
@@ -51,16 +51,14 @@ void taskFillMatrix(Args *a) {
 				a->matrix->rightCol[i] = 0;
 				for (k = 0; k < triangleList.size(); ++k) {
 					Triangle t = triangleList.at(k);
-					for (l = 0; l < 4; ++l) {
-						intPoints[0] = (l < 3) ? t[l] : (t[1] + t[2]) / 2;
-						intPoints[1] = (t[l % 3] + t[(l + 1) % 3]) / 2;
-						intPoints[2] = (t[l % 3] + t[(l + 2) % 3]) / 2;
-						interpolationPolynom = getLinearInterpolation(intPoints);
-						polynom = polynomMultiply(
-							phiFunctionPolynom(t, vertex1),
-							interpolationPolynom);
-						a->matrix->rightCol[i] += getIntegral(intPoints, polynom);
-					}
+					intPoints[0] = t[0];
+					intPoints[1] = t[1];
+					intPoints[2] = t[2];
+					interpolationPolynom = getLinearInterpolation(intPoints);
+					polynom = polynomMultiply(
+						phiFunctionPolynom(t, vertex1),
+						interpolationPolynom);
+					a->matrix->rightCol[i] += getIntegral(intPoints, polynom);
 				}
 			} else
 				triangleList = getCommonTriangles(a->points, a->size, a->layers,
