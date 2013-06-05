@@ -1,5 +1,4 @@
 #include "threads.hpp"
-#include <QDebug>
 
 void synchronize(Args *a) {
 	pthread_mutex_lock(a->mutex);
