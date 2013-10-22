@@ -10,18 +10,16 @@ void synchronize(Args *a) {
 }
 
 void taskGetNzCount(Args *a) {
-	quint32 i, j;
+	quint32 i;
 	TriangleList triangleList;
 	for (i = a->thread; i < POINTS(a->layers, a->size); i += a->threads) {
-		a->locnzc[i] = 0;
-		for (j = 0; j < POINTS(a->layers, a->size); ++j) {
-			if (i == j)
-				continue;
-			triangleList = getCommonTriangles(a->points, a->size, a->layers,
-				getVertex(a->size, i), getVertex(a->size, j), a->centerPtr);
-			if (!(triangleList.isEmpty()))
-				++(a->locnzc[i]);
-		}
+		Vertex v = getVertex(a->size, i);
+		if (!v.layer)
+			a->locnzc[i] = a->size;
+		else if (v.layer == a->layers)
+			a->locnzc[i] = v.index ? 4 : 3;
+		else
+			a->locnzc[i] = 6;
 	}
 }
 
