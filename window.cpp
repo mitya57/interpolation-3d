@@ -258,7 +258,7 @@ double f(DrawArea *, QPointF, Vertex)) {
 void DrawArea::initializeGL() {
 	qglClearColor(QPalette().color(QPalette::Window));
 	glEnable(GL_DEPTH_CLAMP);
-	//glEnable(GL_DEPTH_TEST);
+	glEnable(GL_NORMALIZE);
 }
 
 void DrawArea::resizeGL(int width, int height) {
