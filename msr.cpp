@@ -32,6 +32,7 @@ void MsrMatrix::applyToVector(double *vector, double *newVector) const {
 			newVector[i] += elements[ind] * vector[indices[ind]];
 	}
 }
+
 double MsrMatrix::getResidual(double *vector) const {
 	double result = 0, c;
 	quint32 i, ind;
