@@ -36,6 +36,9 @@ public:
 
 	DrawArea(QWidget *parent=0):
 		QGLWidget(parent),
+		xRot(0),
+		yRot(0),
+		zRot(0),
 		nSca(1)
 	{
 		size = getPoints(&points);
