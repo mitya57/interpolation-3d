@@ -203,6 +203,8 @@ void DrawArea::update(bool firstRun) {
 	pthread_mutex_unlock(&mutex);
 	for (i = 0; i < threads; ++i)
 		pthread_join(thr[i], NULL);
+	delete[] thr;
+	delete[] args;
 	updateResidual();
 }
 
